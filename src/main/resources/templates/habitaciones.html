@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habitaciones</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .floor {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 10px;
+        }
+        .room {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        .room h2 {
+            font-size: 10pt;
+        }
+        .room h3 {
+            font-size: 8pt;
+            margin: 5px 0;
+        }
+        .room p {
+            font-size: 8pt;
+            margin: 5px 0;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Habitaciones</h1>
+    <form action="" method="get">
+        <label for="desde">Desde:</label>
+        <input type="date" name="desde" id="desde">
+        <label for="hasta">Hasta:</label>
+        <input type="date" name="hasta" id="hasta">
+        <button type="submit">Buscar</button>
+    </form>
+
+    <div th:each="floor : ${hotel}" class="floor">
+        <div th:each="room : ${floor}" class="room">
+            <h2 th:text="'Habitación ' + ${room.numero}"></h2>
+            <h3 th:text="${room.tipo}"></h3>
+            <p>Libre</p>
+            <a href="#">Reservar</a>            
+        </div>        
+    </div>
+
+</body>
+</html>
