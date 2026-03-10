@@ -1,24 +1,44 @@
 package cursojava.reservas.models;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
+import jakarta.annotation.Nonnull;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
+@Entity
 public class Reserva {
     
+    @Id
+    private UUID localizador;
+
+    @Nonnull
     private String nombreCliente;
-    private int numeroHabitacion;
+
+    @Nonnull
     private LocalDate fechaEntrada;
+
+    @Nonnull
     private LocalDate fechaSalida;
+
+    @ManyToOne
+    @Nonnull
+    private Habitacion habitacion;
 
     public Reserva() {
     }
 
-    public Reserva(String nombreCliente, int numeroHabitacion, LocalDate fechaEntrada, LocalDate fechaSalida) {
+    public Reserva(String nombreCliente, Habitacion habitacion, LocalDate fechaEntrada, LocalDate fechaSalida) {
         this.nombreCliente = nombreCliente;
-        this.numeroHabitacion = numeroHabitacion;
+        this.habitacion = habitacion;
         this.fechaEntrada = fechaEntrada;
         this.fechaSalida = fechaSalida;
     }
 
+
+    
     public String getNombreCliente() {
         return nombreCliente;
     }
@@ -27,13 +47,6 @@ public class Reserva {
         this.nombreCliente = nombreCliente;
     }
 
-    public int getNumeroHabitacion() {
-        return numeroHabitacion;
-    }
-
-    public void setNumeroHabitacion(int numeroHabitacion) {
-        this.numeroHabitacion = numeroHabitacion;
-    }
 
     public LocalDate getFechaEntrada() {
         return fechaEntrada;
@@ -51,5 +64,20 @@ public class Reserva {
         this.fechaSalida = fechaSalida;
     }
 
+    public UUID getLocalizador() {
+        return localizador;
+    }
+
+    public void setLocalizador(UUID localizador) {
+        this.localizador = localizador;
+    }
+
+    public Habitacion getHabitacion() {
+        return habitacion;
+    }
+
+    public void setHabitacion(Habitacion habitacion) {
+        this.habitacion = habitacion;
+    }
     
 }

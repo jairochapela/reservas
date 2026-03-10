@@ -2,12 +2,21 @@ package cursojava.reservas.models;
 
 import java.util.List;
 
+import jakarta.annotation.Nonnull;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+@Entity
 public class Habitacion {
     
+    @Id
     private int numero;
 
+    @Nonnull
     private String tipo;
 
+    @OneToMany(mappedBy = "habitacion")
     private List<Reserva> reservas;
 
     public Habitacion() {
