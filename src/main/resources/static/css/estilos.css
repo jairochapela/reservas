@@ -1,0 +1,157 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 12pt;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+
+main {
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+}
+
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+}
+
+header nav {
+    display: flex;
+    gap: 20px;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+header nav ul li {
+    display: inline;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 12pt;
+}
+
+nav.breadcrumbs {
+    background-color: #333;
+    padding: 10px 20px;
+}
+
+nav.breadcrumbs > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav.breadcrumbs > ul > li {
+    margin-right: 20px;
+}
+
+nav.breadcrumbs > ul > li > a {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav.breadcrumbs > ul > li > a:hover {
+    text-decoration: underline;
+}
+
+nav.breadcrumbs > ul > :not(:last-child)::after {
+    content: " > ";
+    color: #fff;
+    margin-left: 20px;
+}
+
+
+
+table.reservas {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+table.reservas th, table.reservas td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+table.reservas th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+table.reservas tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table.reservas tr:hover {
+    background-color: #ddd;
+}   
+
+form input[type="text"], form input[type="date"], form textarea, form select {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 12pt;
+}
+
+form label {
+    font-weight: bold;
+}
+
+form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.action {
+    text-decoration: none;
+    text-align: center;
+    font-size: 12pt;
+    padding: 6pt 12pt;
+    border: none;
+    cursor: pointer;
+}
+
+.action-primary {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.action-secondary {
+    background-color: #008CBA;
+    color: white;
+}
+
+.action-danger {
+    background-color: #f44336;
+    color: white;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin: 0;
+}

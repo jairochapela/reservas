@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head('Reservas', ~{::style})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Reserva</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <style></style>
+</head>
+<body th:replace="base :: body(~{::main})">
+    <main>
+    <h1>Nueva Reserva</h1>
+
+    <form action="" method="post">
+        <label for="habitacion">Habitación:</label>
+        <select name="habitacion" id="habitacion">
+            <option th:each="habitacion : ${habitaciones}" th:value="${habitacion.numero}" th:text="'Habitación ' + ${habitacion.numero} + ' - ' + ${habitacion.tipo}"></option>
+        </select>
+
+        <label for="fechaEntrada">Fecha de Entrada:</label>
+        <input type="date" name="fechaEntrada" id="fechaEntrada">
+
+        <label for="fechaSalida">Fecha de Salida:</label>
+        <input type="date" name="fechaSalida" id="fechaSalida">
+
+        <!-- TODO: La fecha de salida debe ser al menos 24 horas posterior a la de entrada -->
+
+        <label for="nombreCliente">Nombre del Cliente:</label>
+        <input type="text" name="nombreCliente" id="nombreCliente">
+
+        <button type="submit" class="action action-primary">Crear Reserva</button>
+    </form>
+
+    </main>
+</body>
+</html>

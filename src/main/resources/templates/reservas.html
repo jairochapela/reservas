@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head('Reservas', ~{::style})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <style></style>
+</head>
+<body th:replace="base :: body(~{::main})">
+    <main>
+        <h1>Reservas</h1>
+        <table class="reservas">
+            <thead>
+                <tr>
+                    <th>Localizador</th>
+                    <th>Habitación</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
+                    <th>Cliente</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="reserva : ${reservas}">
+                    <td th:text="${reserva.localizador}"></td>
+                    <td th:text="${reserva.habitacion.numero}"></td>
+                    <td th:text="${reserva.fechaEntrada}"></td>
+                    <td th:text="${reserva.fechaSalida}"></td>
+                    <td th:text="${reserva.nombreCliente}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/reservas/nueva}" class="action action-primary">Nueva Reserva</a>
+
+    </main>
+</body>
+</html>

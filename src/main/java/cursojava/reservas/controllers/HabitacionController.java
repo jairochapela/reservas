@@ -18,6 +18,11 @@ public class HabitacionController {
     @Autowired
     private HabitacionRepository habitacionRepository;
 
+    @GetMapping("/")
+    public String index() {
+        return "redirect:/habitaciones";
+    }
+
     @GetMapping("/habitaciones")
     public String listarHabitaciones(Model modelUI) {
 

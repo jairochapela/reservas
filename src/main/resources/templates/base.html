@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(titulo,estilos)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}">Hotel California</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <style th:replace="${estilos}"></style>
+</head>
+<body th:fragment="body(contenido)">
+    <header>
+        <nav>
+            <ul>
+                <li><a th:href="@{/habitaciones}">Habitaciones</a></li>
+                <li><a th:href="@{/reservas}">Reservas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <th:block th:replace="${contenido}"></th:block>
+    </main>
+    
+    <footer>
+        <p>&copy; 2026 Hotel California. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
