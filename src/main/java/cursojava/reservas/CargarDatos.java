@@ -19,7 +19,7 @@ import cursojava.reservas.repositories.HabitacionRepository;
  * Inspirado en:
  * https://spring.io/guides/gs/accessing-data-jpa
  */
-@SpringBootApplication
+// @SpringBootApplication
 public class CargarDatos {
     
 

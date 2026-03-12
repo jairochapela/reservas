@@ -14,6 +14,7 @@ import cursojava.reservas.models.Habitacion;
 import cursojava.reservas.models.Reserva;
 import cursojava.reservas.repositories.HabitacionRepository;
 import cursojava.reservas.repositories.ReservaRepository;
+import cursojava.reservas.services.ReservaService;
 
 @Controller
 public class ReservaController {
@@ -39,9 +40,26 @@ public class ReservaController {
     }
 
     @PostMapping("/reservas/nueva")
-    public String crearReserva(Reserva reserva) {
-        // TODO: Validar los datos de la reserva y comprobar disponibilidad de la habitación
+    public String crearReserva(Reserva reserva, Model modelUI, ReservaService reservaService) {
         reserva.setLocalizador(UUID.randomUUID());
+
+        // Validar fechas
+        if (!reservaService.fechasValidas(reserva)) {
+            modelUI.addAttribute("reserva", reserva);
+            modelUI.addAttribute("habitaciones", habitacionRepository.findAll());
+            modelUI.addAttribute("error", "Las fechas de la reserva no son válidas.");
+            return "editarreserva";
+        }        
+
+        // Validar los datos de la reserva y comprobar disponibilidad de la habitación
+        List<Reserva> reservasExistentes = reservaRepository.findByHabitacionNumero(reserva.getHabitacion().getNumero());
+        if (!reservaService.estaDisponible(reservasExistentes, reserva)) {
+            modelUI.addAttribute("reserva", reserva);
+            modelUI.addAttribute("habitaciones", habitacionRepository.findAll());
+            modelUI.addAttribute("error", "La habitación no está disponible en las fechas seleccionadas.");
+            return "editarreserva";
+        }
+
         reservaRepository.save(reserva);
         return "redirect:/reservas";
     }
@@ -75,8 +93,26 @@ public class ReservaController {
     }
 
     @PostMapping("/reservas/{localizador}")
-    public String actualizarReserva(@PathVariable UUID localizador, Reserva reservaActualizada) {
+    public String actualizarReserva(@PathVariable UUID localizador, Reserva reservaActualizada, ReservaService reservaService, Model modelUI) {
         reservaActualizada.setLocalizador(localizador);
+
+        // Validar fechas
+        if (!reservaService.fechasValidas(reservaActualizada)) {
+            modelUI.addAttribute("reserva", reservaActualizada);
+            modelUI.addAttribute("habitaciones", habitacionRepository.findAll());
+            modelUI.addAttribute("error", "Las fechas de la reserva no son válidas.");
+            return "editarreserva";
+        }        
+
+        // Validar los datos de la reserva y comprobar disponibilidad de la habitación
+        List<Reserva> reservasExistentes = reservaRepository.findByHabitacionNumero(reservaActualizada.getHabitacion().getNumero());
+        if (!reservaService.estaDisponible(reservasExistentes, reservaActualizada)) {
+            modelUI.addAttribute("reserva", reservaActualizada);
+            modelUI.addAttribute("habitaciones", habitacionRepository.findAll());
+            modelUI.addAttribute("error", "La habitación no está disponible en las fechas seleccionadas.");
+            return "editarreserva";
+        }
+
         reservaRepository.save(reservaActualizada);
         return "redirect:/reservas/" + localizador;
     }

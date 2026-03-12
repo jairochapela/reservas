@@ -156,3 +156,10 @@ footer {
     padding: 10px 0;
     margin: 0;
 }
+
+.error {
+    color: red;
+    font-weight: bold;
+    background-color: #ffb3ad;
+    padding: 10px;
+}

@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.query.internal.QueryArguments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import cursojava.reservas.models.Habitacion;
 import cursojava.reservas.repositories.HabitacionRepository;
@@ -24,9 +26,14 @@ public class HabitacionController {
     }
 
     @GetMapping("/habitaciones")
-    public String listarHabitaciones(Model modelUI) {
+    public String listarHabitaciones(@RequestParam(required = false) LocalDate desde, @RequestParam(required = false) LocalDate hasta, Model modelUI) {
 
-        List<Habitacion> habitaciones = habitacionRepository.findAll();
+        List<Habitacion> habitaciones;
+        if (desde != null && hasta != null) {
+            habitaciones = habitacionRepository.findByRangoFechas(desde, hasta);
+        } else {
+            habitaciones = habitacionRepository.findAll();
+        }
 
         // Organizar las habitaciones por piso
         List<List<Habitacion>> hotel = new ArrayList<>();
@@ -40,6 +47,8 @@ public class HabitacionController {
         }
 
         modelUI.addAttribute("hotel", hotel);
+        modelUI.addAttribute("desde", desde);
+        modelUI.addAttribute("hasta", hasta);
 
         return "habitaciones";
     }

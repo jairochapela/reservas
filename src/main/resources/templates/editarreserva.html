@@ -28,6 +28,8 @@
         <label for="nombreCliente">Nombre del Cliente:</label>
         <input type="text" name="nombreCliente" id="nombreCliente" th:value="${reserva.nombreCliente}">
 
+        <p class="error" th:text="${error}" th:if="${error}"></p>
+
         <button type="submit" class="action action-primary">Guardar Cambios</button>
         <button type="reset" class="action action-secondary">Restablecer</button>
     </form>

@@ -31,9 +31,9 @@
         <h1>Habitaciones</h1>
         <form action="" method="get">
             <label for="desde">Desde:</label>
-            <input type="date" name="desde" id="desde">
+            <input type="date" name="desde" id="desde" th:value="${desde}">
             <label for="hasta">Hasta:</label>
-            <input type="date" name="hasta" id="hasta">
+            <input type="date" name="hasta" id="hasta" th:value="${hasta}">
             <button type="submit">Buscar</button>
         </form>
         <div th:each="floor : ${hotel}" class="floor">
