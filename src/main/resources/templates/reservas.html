@@ -22,7 +22,9 @@
             </thead>
             <tbody>
                 <tr th:each="reserva : ${reservas}">
-                    <td th:text="${reserva.localizador}"></td>
+                    <td>
+                        <a th:href="@{/reservas/{localizador}(localizador=${reserva.localizador})}" th:text="${reserva.localizador}"></a>
+                    </td>
                     <td th:text="${reserva.habitacion.numero}"></td>
                     <td th:text="${reserva.fechaEntrada}"></td>
                     <td th:text="${reserva.fechaSalida}"></td>

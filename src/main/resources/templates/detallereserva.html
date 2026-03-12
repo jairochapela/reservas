@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head('Reserva H' + ${reserva.habitacion.numero} + ' - ' + ${reserva.nombreCliente}, ~{::style})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <style></style>
+</head>
+<body th:replace="base :: body(~{::main})">
+    <main>
+    <h1>Reserva de la habitación <span th:text="${reserva.habitacion.numero}"></span> a nombre de <span th:text="${reserva.nombreCliente}"></span></h1>
+
+    <dl>
+        <dt>Localizador:</dt>
+        <dd th:text="${reserva.localizador}"></dd>           
+
+        <dt>Habitación:</dt>
+        <dd th:text="${reserva.habitacion.numero}"></dd>
+
+        <dt>Fecha de Entrada:</dt>
+        <dd th:text="${reserva.fechaEntrada}"></dd>
+
+        <dt>Fecha de Salida:</dt>
+        <dd th:text="${reserva.fechaSalida}"></dd>
+
+        <dt>Nombre del Cliente:</dt>
+        <dd th:text="${reserva.nombreCliente}"></dd>
+    </dl>
+
+    <a th:href="@{/reservas/{localizador}/editar(localizador=${reserva.localizador})}" class="action action-secondary">Editar Reserva</a>
+
+    <form th:action="@{/reservas/{localizador}/eliminar(localizador=${reserva.localizador})}" method="post" style="display: inline;">
+        <button type="submit" class="action action-danger" onclick="return confirm('Está seguro de querer eliminar la reserva?')">Eliminar Reserva</button>
+    </form>
+
+    </main>
+</body>
+</html>
