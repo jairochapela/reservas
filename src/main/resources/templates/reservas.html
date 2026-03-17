@@ -10,6 +10,19 @@
 <body th:replace="base :: body(~{::main})">
     <main>
         <h1>Reservas</h1>
+        <form action="" method="get">
+            <label for="desde">Desde:</label>
+            <input type="date" name="desde" id="desde" th:value="${param.desde}">
+            <label for="hasta">Hasta:</label>
+            <input type="date" name="hasta" id="hasta" th:value="${param.hasta}">
+            <label for="numeroHabitacion">Número de Habitación:</label>
+            <input type="number" name="numeroHabitacion" id="numeroHabitacion" th:value="${param.numeroHabitacion}">
+            <label for="nombre">Nombre del Cliente:</label>
+            <input type="text" name="nombre" id="nombre" th:value="${param.nombre}">
+
+            <button type="submit" class="action action-primary">Buscar</button>
+            <a th:href="@{/reservas}" class="action action-secondary">Limpiar búsqueda</a>
+        </form>
         <table class="reservas">
             <thead>
                 <tr>

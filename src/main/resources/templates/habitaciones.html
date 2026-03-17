@@ -34,7 +34,15 @@
             <input type="date" name="desde" id="desde" th:value="${desde}">
             <label for="hasta">Hasta:</label>
             <input type="date" name="hasta" id="hasta" th:value="${hasta}">
-            <button type="submit">Buscar</button>
+
+            <label for="tipo">Tipo de habitación:</label>
+            <select name="tipo" id="tipo">
+                <option value="">Todos los tipos</option>
+                <option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo}"></option>
+            </select>
+
+            <button type="submit" class="action action-primary">Buscar</button>
+            <a th:href="@{/habitaciones}" class="action action-secondary">Limpiar búsqueda</a>
         </form>
         <div th:each="floor : ${hotel}" class="floor">
             <div th:each="room : ${floor}" class="room">

@@ -3,9 +3,6 @@ package cursojava.reservas.models;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import org.springframework.context.annotation.Lazy;
-import org.springframework.data.repository.cdi.Eager;
-
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

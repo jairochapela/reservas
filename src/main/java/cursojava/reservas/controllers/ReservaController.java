@@ -1,14 +1,17 @@
 package cursojava.reservas.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import cursojava.reservas.models.Habitacion;
 import cursojava.reservas.models.Reserva;
@@ -26,8 +29,47 @@ public class ReservaController {
     private HabitacionRepository habitacionRepository;
     
     @GetMapping("/reservas")
-    public String listarReservas(Model modelUI) {
-        List<Reserva> reservas = reservaRepository.findAll();
+    public String listarReservas(
+        @RequestParam(required = false) LocalDate desde, 
+        @RequestParam(required = false) LocalDate hasta,
+        @RequestParam(required = false) Integer numeroHabitacion,
+        @RequestParam(required = false) String nombre,
+        Model modelUI
+    ) {
+
+        // Inicialmente se consultan todas las reservas, sin filtro.
+        Specification<Reserva> spec = Specification.unrestricted();
+
+        if (desde != null && hasta != null) {
+            // Añadir criterio de búsqueda por fechas.
+            Specification<Reserva> fechaSpec = Specification.where((root, query, criteriaBuilder) -> 
+                criteriaBuilder.and(
+                    criteriaBuilder.greaterThanOrEqualTo(root.get("fechaEntrada"), desde),
+                    criteriaBuilder.lessThanOrEqualTo(root.get("fechaEntrada"), hasta)
+                )
+            );
+            spec = spec.and(fechaSpec);
+        }
+        
+
+        if (numeroHabitacion != null) {
+            // Añadir criterio de búsqueda por número de habitación.
+            Specification<Reserva> habitacionSpec = Specification.where((root, query, criteriaBuilder) -> 
+                criteriaBuilder.equal(root.get("habitacion").get("numero"), numeroHabitacion)
+            );
+            spec = spec.and(habitacionSpec);
+        }
+
+        if (nombre != null && !nombre.isEmpty()) {
+            // Añadir criterio de búsqueda por nombre del cliente.
+            Specification<Reserva> nombreSpec = Specification.where((root, query, criteriaBuilder) -> 
+                criteriaBuilder.like(root.get("nombreCliente"), "%" + nombre + "%")
+            );
+            spec = spec.and(nombreSpec);
+        }
+
+        List<Reserva> reservas = reservaRepository.findAll(spec);
+
         modelUI.addAttribute("reservas", reservas);
         return "reservas";
     }

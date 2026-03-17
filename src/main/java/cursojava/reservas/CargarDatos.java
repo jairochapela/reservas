@@ -19,7 +19,7 @@ import cursojava.reservas.repositories.HabitacionRepository;
  * Inspirado en:
  * https://spring.io/guides/gs/accessing-data-jpa
  */
-// @SpringBootApplication
+@SpringBootApplication
 public class CargarDatos {
     
 
@@ -32,17 +32,18 @@ public class CargarDatos {
     public CommandLineRunner demo(HabitacionRepository habitacionRepository) {
         return args -> {
             try {
-                BufferedReader br = new BufferedReader(new FileReader("data/habitaciones.csv"));
-                br.lines()
-                    .skip(1) // Omitir la primera línea (encabezados)
-                    .forEach(line -> {
-                        String[] fields = line.split(",");
-                        int numeroHabitacion = Integer.parseInt(fields[0]);
-                        String tipo = fields[1];
+                try (BufferedReader br = new BufferedReader(new FileReader("data/habitaciones.csv"))) {
+                    br.lines()
+                        .skip(1) // Omitir la primera línea (encabezados)
+                        .forEach(line -> {
+                            String[] fields = line.split(",");
+                            int numeroHabitacion = Integer.parseInt(fields[0]);
+                            String tipo = fields[1];
 
-                        Habitacion habitacion = new Habitacion(numeroHabitacion, tipo);
-                        habitacionRepository.save(habitacion);
-                    });
+                            Habitacion habitacion = new Habitacion(numeroHabitacion, tipo);
+                            habitacionRepository.save(habitacion);
+                        });
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
